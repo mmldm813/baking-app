@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getDesserts();
     }
 
     public void getDesserts() {
@@ -43,5 +42,11 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "Network request failed.", t);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getDesserts();
     }
 }
