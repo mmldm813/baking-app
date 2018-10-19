@@ -1,21 +1,23 @@
 package com.example.michellemedina.bakingapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.example.michellemedina.bakingapp.api.DessertClient;
-import com.example.michellemedina.bakingapp.api.RetrofitHelper;
 import com.example.michellemedina.bakingapp.data.Dessert;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -25,13 +27,20 @@ public class RecipeActivity extends AppCompatActivity {
     private DessertCardAdapter adapter;
     private List<Dessert> desserts = new ArrayList<>();
 
+    @Inject Retrofit retrofit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setupDagger();
         setupCardView();
 
+    }
+
+    private void setupDagger() {
+        ((MyApplication)getApplication()).getComponent().inject(this);
     }
 
     public void setupCardView(){
@@ -44,7 +53,7 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
     public void getDesserts() {
-        DessertClient client = RetrofitHelper.getRetrofitInstance().create(DessertClient.class);
+        DessertClient client = retrofit.create(DessertClient.class);
         Call<List<Dessert>> call = client.getDesserts();
 
         call.enqueue(new Callback<List<Dessert>>() {

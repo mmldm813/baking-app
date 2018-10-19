@@ -57,5 +57,4 @@ public class DessertCardAdapter extends RecyclerView.Adapter<DessertCardAdapter.
         }
     }
 
-
 }
