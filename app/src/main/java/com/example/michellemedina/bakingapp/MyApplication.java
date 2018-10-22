@@ -10,6 +10,11 @@ public class MyApplication extends Application {
 
     private ApplicationComponent applicationComponent;
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
     public ApplicationComponent getComponent() {
         if (applicationComponent == null) {
             applicationComponent = DaggerApplicationComponent.builder()

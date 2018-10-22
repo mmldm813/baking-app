@@ -36,7 +36,6 @@ public class RecipeActivity extends AppCompatActivity {
 
         setupDagger();
         setupCardView();
-
     }
 
     private void setupDagger() {
