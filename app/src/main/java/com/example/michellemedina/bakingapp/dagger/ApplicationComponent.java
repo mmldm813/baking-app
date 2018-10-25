@@ -1,6 +1,6 @@
 package com.example.michellemedina.bakingapp.dagger;
 
-import com.example.michellemedina.bakingapp.RecipeActivity;
+import com.example.michellemedina.bakingapp.main.RecipeActivity;
 
 import javax.inject.Singleton;
 

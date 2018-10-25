@@ -1,10 +1,11 @@
 package com.example.michellemedina.bakingapp.data;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 
-public class Dessert {
+public class Dessert implements Serializable {
 
     @SerializedName("id")
     private Integer dessertId;

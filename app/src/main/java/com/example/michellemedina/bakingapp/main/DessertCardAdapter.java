@@ -1,5 +1,6 @@
-package com.example.michellemedina.bakingapp;
+package com.example.michellemedina.bakingapp.main;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.michellemedina.bakingapp.R;
 import com.example.michellemedina.bakingapp.data.Dessert;
+import com.example.michellemedina.bakingapp.detail.RecipeDetailActivity;
 
 import java.util.List;
 
@@ -43,8 +46,17 @@ public class DessertCardAdapter extends RecyclerView.Adapter<DessertCardAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull DessertViewHolder holder, final int position) {
-        final String dessertName = desserts.get(position).getDessertName();
+        final Dessert dessert = desserts.get(position);
+        final String dessertName = dessert.getDessertName();
         holder.dessertText.setText(dessertName);
+        holder.dessertCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                RecipeDetailActivity.startWith(context, dessert);
+            }
+        });
+
     }
 
     @Override

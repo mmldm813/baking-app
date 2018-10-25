@@ -1,4 +1,4 @@
-package com.example.michellemedina.bakingapp;
+package com.example.michellemedina.bakingapp.main;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.example.michellemedina.bakingapp.MyApplication;
+import com.example.michellemedina.bakingapp.R;
 import com.example.michellemedina.bakingapp.api.DessertClient;
 import com.example.michellemedina.bakingapp.data.Dessert;
 
@@ -74,4 +76,5 @@ public class RecipeActivity extends AppCompatActivity {
         super.onResume();
         getDesserts();
     }
+
 }

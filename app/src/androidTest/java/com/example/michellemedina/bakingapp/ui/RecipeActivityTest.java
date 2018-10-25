@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.example.michellemedina.bakingapp.MockServerDispatcher;
 import com.example.michellemedina.bakingapp.R;
-import com.example.michellemedina.bakingapp.RecipeActivity;
+import com.example.michellemedina.bakingapp.main.RecipeActivity;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
