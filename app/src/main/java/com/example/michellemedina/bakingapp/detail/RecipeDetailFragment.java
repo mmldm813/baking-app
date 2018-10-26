@@ -1,7 +1,5 @@
 package com.example.michellemedina.bakingapp.detail;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,12 +17,29 @@ import com.example.michellemedina.bakingapp.data.Ingredient;
 import com.example.michellemedina.bakingapp.data.Step;
 
 public class RecipeDetailFragment extends Fragment {
+    private static final String EXTRA_DESSERT = "dessert";
     private Dessert dessert;
+
+    public static RecipeDetailFragment newInstance(Dessert dessert) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(EXTRA_DESSERT, dessert);
+
+        RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
+        recipeDetailFragment.setArguments(bundle);
+
+        return recipeDetailFragment;
+    }
+
+    private void readFromBundle(Bundle bundle) {
+        if (bundle != null) {
+            dessert = (Dessert) bundle.getSerializable(EXTRA_DESSERT);
+        }
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        dessert = ((RecipeDetailActivity) getActivity()).getDessert();
+        readFromBundle(getArguments());
         View view = inflater.inflate(R.layout.recipe_detail_layout, container, false);
         addIngredients(view);
         addSteps(view);
@@ -55,10 +70,22 @@ public class RecipeDetailFragment extends Fragment {
             stepId.setText(Integer.toString(step.getStepId()));
             Button shortDescription = instructionView.findViewById(R.id.short_description);
             shortDescription.setText(step.getShortDescription());
+            shortDescription.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickStepToNextFragment();
+                }
+            });
             stepsLayout.addView(instructionView);
         }
     }
 
-
+    private void onClickStepToNextFragment() {
+        StepDetailFragment stepDetailFragment = new StepDetailFragment();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.recipe_detail_fragment_container, stepDetailFragment)
+                .addToBackStack(null)
+                .commit();
+    }
 
 }

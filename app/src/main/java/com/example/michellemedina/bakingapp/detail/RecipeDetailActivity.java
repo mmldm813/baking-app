@@ -24,14 +24,15 @@ public class RecipeDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getDessertFromExtra();
         setContentView(R.layout.activity_recipe_detail);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.recipe_detail_fragment_container,  RecipeDetailFragment.newInstance(dessert))
+                .commit();
     }
 
     private void getDessertFromExtra() {
         Intent intent = getIntent();
         dessert = (Dessert) intent.getSerializableExtra(EXTRA_DESSERT);
-    }
-
-    public Dessert getDessert() {
-        return dessert;
     }
 }
