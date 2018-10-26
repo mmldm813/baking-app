@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/recipe_detail_layout"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -14,15 +15,10 @@
             android:id="@+id/ingredient_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:paddingLeft="10dp"
+            android:layout_margin="10dp"
             android:text="Ingredients"
-            android:textSize="22sp"/>
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/ingredients"
@@ -32,97 +28,22 @@
 
         </LinearLayout>
 
-        <!--<android.support.v7.widget.AppCompatCheckBox-->
-            <!--android:id="@+id/ingredient_checkbox"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="38dp"-->
-            <!--android:layout_marginBottom="8dp"-->
-            <!--android:layout_marginEnd="8dp"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--android:layout_marginRight="8dp"-->
-            <!--android:layout_marginStart="8dp"-->
-            <!--android:layout_marginTop="8dp"/>-->
+        <TextView
+            android:id="@+id/steps_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Steps"
+            android:textSize="22sp"
+            android:textStyle="normal|bold" />
 
-        <!--<TextView-->
-            <!--android:id="@+id/ingredient_quantity"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="8dp"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--android:layout_marginStart="8dp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--android:textStyle="bold"-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/steps_title"-->
-            <!--app:layout_constraintStart_toEndOf="@+id/ingredient_checkbox"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/ingredient_title"-->
-            <!--tools:text="quantity" />-->
+        <LinearLayout
+            android:id="@+id/instructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <!--<TextView-->
-            <!--android:id="@+id/ingredient_measure"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="8dp"-->
-            <!--android:layout_marginLeft="4dp"-->
-            <!--android:layout_marginStart="4dp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--android:textStyle="bold"-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/steps_title"-->
-            <!--app:layout_constraintStart_toEndOf="@+id/ingredient_quantity"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/ingredient_title"-->
-            <!--tools:text="measure" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/ingredient_name"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="8dp"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--android:layout_marginStart="8dp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--android:textStyle="bold"-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/steps_title"-->
-            <!--app:layout_constraintStart_toEndOf="@+id/ingredient_measure"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/ingredient_title"-->
-            <!--tools:text="ingredient name" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/steps_title"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="30dp"-->
-            <!--android:layout_marginEnd="8dp"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--android:layout_marginRight="8dp"-->
-            <!--android:layout_marginStart="8dp"-->
-            <!--android:layout_marginTop="92dp"-->
-            <!--android:paddingLeft="10dp"-->
-            <!--android:text="Steps"-->
-            <!--android:textSize="22sp"-->
-            <!--app:layout_constraintEnd_toEndOf="@+id/ingredient_title"-->
-            <!--app:layout_constraintHorizontal_bias="0.0"-->
-            <!--app:layout_constraintStart_toStartOf="@+id/ingredient_title"-->
-            <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/step_id"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--android:layout_marginStart="8dp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--app:layout_constraintStart_toStartOf="@+id/steps_title"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/steps_title"-->
-            <!--tools:text="step number" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/short_description"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--android:layout_marginStart="8dp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--app:layout_constraintStart_toEndOf="@+id/step_id"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/steps_title"-->
-            <!--tools:text="short description" />-->
+        </LinearLayout>
 
 
     </LinearLayout>
