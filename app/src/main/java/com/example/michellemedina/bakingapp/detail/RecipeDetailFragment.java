@@ -67,7 +67,9 @@ public class RecipeDetailFragment extends Fragment {
             View instructionView = getLayoutInflater().inflate(R.layout.instructions_layout
             ,null, false);
             TextView stepId = instructionView.findViewById(R.id.step_id);
-            stepId.setText(Integer.toString(step.getStepId()));
+            if (step.getStepId() > 0) {
+                stepId.setText(String.format("Step %d", step.getStepId()));
+            }
             Button shortDescription = instructionView.findViewById(R.id.short_description);
             shortDescription.setText(step.getShortDescription());
             shortDescription.setOnClickListener(new View.OnClickListener() {
