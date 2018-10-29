@@ -16,49 +16,58 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets']
+        }
+        androidTest {
+            assets.srcDirs = ['src/androidTest/assets/']
+        }
+    }
 
-    // support-library
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation "com.android.support:design:27.1.1"
-    implementation "com.android.support:recyclerview-v7:27.1.1"
-    implementation "com.android.support:cardview-v7:27.1.1"
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
-    implementation 'com.google.code.gson:gson:2.6.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+        // support-library
+        implementation 'com.android.support:appcompat-v7:27.1.1'
+        implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+        implementation "com.android.support:design:27.1.1"
+        implementation "com.android.support:recyclerview-v7:27.1.1"
+        implementation "com.android.support:cardview-v7:27.1.1"
 
-    // video player
-    implementation 'com.google.android.exoplayer:exoplayer:r2.2.0'
+        // retrofit
+        implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+        implementation 'com.google.code.gson:gson:2.6.2'
+        implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
-    // butterknife
-    implementation 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+        // video player
+        implementation 'com.google.android.exoplayer:exoplayer:r2.2.0'
 
-    // dagger
-    implementation 'com.google.dagger:dagger-android:2.11'
-    implementation 'com.google.dagger:dagger-android-support:2.11'
-    // if you use the support libraries
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+        // butterknife
+        implementation 'com.jakewharton:butterknife:8.5.1'
+        annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
-    // junit
-    testImplementation 'junit:junit:4.12'
+        // dagger
+        implementation 'com.google.dagger:dagger-android:2.11'
+        implementation 'com.google.dagger:dagger-android-support:2.11'
+        // if you use the support libraries
+        annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
+        annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
 
-    // instrumentation tests
-    androidTestImplementation 'com.android.support:support-annotations:25.1.0'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:2.2.2'
-    androidTestImplementation 'com.android.support.test:rules:0.5'
-    androidTestImplementation 'com.android.support.test:runner:0.5'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:2.1'
+        // junit
+        testImplementation 'junit:junit:4.12'
 
-    // mockwebserver for retrofit
-    androidTestImplementation 'com.squareup.okhttp3:mockwebserver:3.6.0'
+        // instrumentation tests
+        androidTestImplementation 'com.android.support:support-annotations:25.1.0'
+        androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
+        androidTestImplementation 'com.android.support.test.espresso:espresso-intents:2.2.2'
+        androidTestImplementation 'com.android.support.test:rules:0.5'
+        androidTestImplementation 'com.android.support.test:runner:0.5'
+        androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:2.1'
 
+        // mockwebserver for retrofit
+        androidTestImplementation 'com.squareup.okhttp3:mockwebserver:3.6.0'
+
+    }
 }
