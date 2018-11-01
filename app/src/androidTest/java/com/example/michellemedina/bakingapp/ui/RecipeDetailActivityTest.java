@@ -28,7 +28,12 @@ import androidx.test.runner.AndroidJUnit4;
 import okhttp3.mockwebserver.MockWebServer;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -79,7 +84,7 @@ public class RecipeDetailActivityTest {
         webServer.setDispatcher(new MockServerDispatcher(null, 200, fakeData).new RequestDispatcher());
         activityTestRule.launchActivity(new Intent().putExtra("dessert", desserts.get(0)));
 
-        onView(withId(R.id.ingredients)).check(ViewAssertions.matches(withLinearLayoutChildrenCount(9)));
+        onView(withId(R.id.ingredients)).check(matches(withLinearLayoutChildrenCount(9)));
     }
 
     @Test
@@ -87,6 +92,17 @@ public class RecipeDetailActivityTest {
         webServer.setDispatcher(new MockServerDispatcher(null, 200, fakeData).new RequestDispatcher());
         activityTestRule.launchActivity(new Intent().putExtra("dessert", desserts.get(0)));
 
-        onView(withId(R.id.steps)).check(ViewAssertions.matches(withLinearLayoutChildrenCount(7)));
+        onView(withId(R.id.steps)).check(matches(withLinearLayoutChildrenCount(7)));
+    }
+
+    @Test
+    public void checkStepDescription() {
+        webServer.setDispatcher(new MockServerDispatcher(null, 200, fakeData).new RequestDispatcher());
+        activityTestRule.launchActivity(new Intent().putExtra("dessert", desserts.get(0)));
+
+        onView(allOf(withId(R.id.short_description), withText("Starting prep"))).perform(scrollTo()).perform(click());
+        onView(withId(R.id.step_long_description)).check(matches(withText("1. Preheat the oven to 350°F. " +
+                "Butter a 9\" deep dish pie pan.")));
+
     }
 }
