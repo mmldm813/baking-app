@@ -62,7 +62,7 @@ public class RecipeDetailFragment extends Fragment {
     }
 
     private void addSteps(final View view) {
-        LinearLayout stepsLayout = view.findViewById(R.id.instructions);
+        LinearLayout stepsLayout = view.findViewById(R.id.steps);
         for (Step step : dessert.getSteps()) {
             View instructionView = getLayoutInflater().inflate(R.layout.instructions_layout
             ,null, false);
