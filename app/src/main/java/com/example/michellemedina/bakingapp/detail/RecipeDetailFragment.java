@@ -63,7 +63,7 @@ public class RecipeDetailFragment extends Fragment {
 
     private void addSteps(final View view) {
         LinearLayout stepsLayout = view.findViewById(R.id.steps);
-        for (Step step : dessert.getSteps()) {
+        for (final Step step : dessert.getSteps()) {
             View instructionView = getLayoutInflater().inflate(R.layout.instructions_layout
             ,null, false);
             TextView stepId = instructionView.findViewById(R.id.step_id);
@@ -75,19 +75,17 @@ public class RecipeDetailFragment extends Fragment {
             shortDescription.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onClickStepToNextFragment();
+                    onClickStepToNextFragment(step);
                 }
             });
             stepsLayout.addView(instructionView);
         }
     }
 
-    private void onClickStepToNextFragment() {
-        StepDetailFragment stepDetailFragment = new StepDetailFragment();
+    private void onClickStepToNextFragment(Step step) {
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.recipe_detail_fragment_container, stepDetailFragment)
+                .replace(R.id.recipe_detail_fragment_container, StepDetailFragment.newInstance(step))
                 .addToBackStack(null)
                 .commit();
     }
-
 }
