@@ -12,6 +12,7 @@ import com.example.michellemedina.bakingapp.RecyclerViewMatcher;
 import com.example.michellemedina.bakingapp.data.Dessert;
 import com.example.michellemedina.bakingapp.main.RecipeActivity;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -70,5 +71,10 @@ public class RecipeActivityIntentTest {
         Dessert dessert = (Dessert) extras.getSerializable("dessert");
 
         assertEquals("Nutella Pie", dessert.getDessertName());
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        webServer.shutdown();
     }
 }

@@ -41,7 +41,6 @@ public class RecyclerViewMatcher {
             }
 
             public boolean matchesSafely(View view) {
-
                 this.resources = view.getResources();
 
                 if (childView == null) {

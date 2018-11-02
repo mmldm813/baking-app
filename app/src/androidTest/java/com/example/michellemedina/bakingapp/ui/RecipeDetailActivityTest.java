@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -104,5 +105,10 @@ public class RecipeDetailActivityTest {
         onView(withId(R.id.step_long_description)).check(matches(withText("1. Preheat the oven to 350°F. " +
                 "Butter a 9\" deep dish pie pan.")));
 
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        webServer.shutdown();
     }
 }
