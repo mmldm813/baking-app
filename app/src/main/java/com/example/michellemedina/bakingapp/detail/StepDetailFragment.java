@@ -15,7 +15,7 @@ import com.example.michellemedina.bakingapp.data.Step;
 
 import java.util.List;
 
-public class StepDetailFragment extends android.support.v4.app.Fragment{
+public class StepDetailFragment extends android.support.v4.app.Fragment {
     private static final String EXTRA_DESSERT = "dessert";
     private static final String EXTRA_STEP_ID = "stepId";
 
@@ -43,25 +43,49 @@ public class StepDetailFragment extends android.support.v4.app.Fragment{
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         readFromBundle(getArguments());
         View view = inflater.inflate(R.layout.step_detail_layout, container, false);
         addStepDescription(view);
+        recipeNavigationSetup(view);
         return view;
     }
 
     private void addStepDescription(View view) {
-            TextView stepDescription = view.findViewById(R.id.step_long_description);
-            stepDescription.setText(step.getDescription());
+        TextView stepDescription = view.findViewById(R.id.step_long_description);
+        stepDescription.setText(step.getDescription());
     }
 
-    private void recipeNavigationSetup(View view){
+    private void recipeNavigationSetup(View view) {
         Button previousButton = view.findViewById(R.id.previous_button);
+        final int currentStepId = step.getStepId();
+        if (currentStepId == 0) {
+            previousButton.setEnabled(false);
+        }
         previousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.recipe_detail_fragment_container,
+                                StepDetailFragment.newInstance(dessert, currentStepId - 1))
+                        .commit();
+            }
+        });
 
+        Button nextButton = view.findViewById(R.id.next_button);
+        if (currentStepId == dessert.getSteps().size() - 1) {
+            nextButton.setEnabled(false);
+        }
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.recipe_detail_fragment_container,
+                                StepDetailFragment.newInstance(dessert, currentStepId + 1))
+                        .commit();
             }
         });
     }
+
 }
