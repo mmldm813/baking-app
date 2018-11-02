@@ -84,7 +84,7 @@ public class RecipeDetailFragment extends Fragment {
 
     private void onClickStepToNextFragment(Step step) {
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.recipe_detail_fragment_container, StepDetailFragment.newInstance(step))
+                .replace(R.id.recipe_detail_fragment_container, StepDetailFragment.newInstance(dessert, step.getStepId()))
                 .addToBackStack(null)
                 .commit();
     }
