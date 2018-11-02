@@ -3,6 +3,7 @@ package com.example.michellemedina.bakingapp.detail;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,7 @@ import com.example.michellemedina.bakingapp.R;
 import com.example.michellemedina.bakingapp.data.Dessert;
 import com.example.michellemedina.bakingapp.data.Step;
 
-import java.util.List;
-
-public class StepDetailFragment extends android.support.v4.app.Fragment {
+public class StepDetailFragment extends Fragment {
     private static final String EXTRA_DESSERT = "dessert";
     private static final String EXTRA_STEP_ID = "stepId";
 

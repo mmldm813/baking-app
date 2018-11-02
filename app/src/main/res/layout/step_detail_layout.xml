@@ -8,31 +8,36 @@
         android:id="@+id/step_long_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:gravity="center"
-        tools:text="long description"/>
+        tools:text="long description"
+        android:layout_alignParentLeft="true" />
 
     <LinearLayout
         android:id="@+id/navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
         android:orientation="horizontal"
-        android:layout_alignBottom="@id/step_long_description">
+        android:layout_alignParentLeft="true">
 
         <Button
             android:id="@+id/previous_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="previous"
+            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:layout_margin="10dp"/>
+            android:text="previous" />
 
         <Button
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="next"
+            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:layout_margin="10dp"/>
+            android:text="next" />
 
     </LinearLayout>
 </RelativeLayout>
