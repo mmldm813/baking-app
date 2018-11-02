@@ -35,4 +35,13 @@ public class RecipeDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         dessert = (Dessert) intent.getSerializableExtra(EXTRA_DESSERT);
     }
+
+    @Override
+    public void onBackPressed() {
+        // since we don't add to the backstack, pressing the back button ends up
+        // leaving a fragment overlapping the prev fragment.
+        // this works around the problem by just intercepting the back button and finishing the
+        // activity
+        finish();
+    }
 }
