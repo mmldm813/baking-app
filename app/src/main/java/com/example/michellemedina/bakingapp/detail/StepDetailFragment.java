@@ -95,6 +95,7 @@ public class StepDetailFragment extends Fragment {
                         .replace(R.id.recipe_detail_fragment_container,
                                 StepDetailFragment.newInstance(dessert, currentStepId - 1))
                         .commit();
+                releasePlayer();
             }
         });
 
@@ -109,6 +110,7 @@ public class StepDetailFragment extends Fragment {
                         .replace(R.id.recipe_detail_fragment_container,
                                 StepDetailFragment.newInstance(dessert, currentStepId + 1))
                         .commit();
+                releasePlayer();
             }
         });
     }
@@ -139,8 +141,11 @@ public class StepDetailFragment extends Fragment {
     }
 
     private void releasePlayer() {
-        simpleExoPlayer.stop();
-        simpleExoPlayer.release();
-        simpleExoPlayer = null;
+        if (simpleExoPlayer != null) {
+            simpleExoPlayer.stop();
+            simpleExoPlayer.release();
+            simpleExoPlayer = null;
+        }
+
     }
 }
