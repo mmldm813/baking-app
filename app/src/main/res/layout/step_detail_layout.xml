@@ -4,6 +4,20 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/player_view"
+        android:layout_width="match_parent"
+        android:layout_height="210dp">
+    </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
+
+    <ImageView
+        android:id="@+id/no_video_image"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:background="@mipmap/baseline_videocam_off_black_36"
+        android:visibility="gone"
+        android:scaleType="fitXY"/>
+
     <TextView
         android:id="@+id/step_long_description"
         android:layout_width="match_parent"
