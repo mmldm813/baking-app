@@ -67,10 +67,12 @@ public class StepDetailFragment extends Fragment {
         addStepDescription(view);
         recipeNavigationSetup(view);
         addExoplayerView(view);
-        if (step.getVideoURL().isEmpty()) {
+        if (step.getVideoURL().isEmpty() && step.getThumbnailURL().isEmpty()) {
             simpleExoPlayerView.setVisibility(View.GONE);
             addNoVideoImage(view);
             noVideoImage.setVisibility(View.VISIBLE);
+        } else if (step.getVideoURL().isEmpty()) {
+            initializePlayer(Uri.parse(step.getThumbnailURL()));
         } else {
             initializePlayer(Uri.parse(step.getVideoURL()));
         }
@@ -146,6 +148,5 @@ public class StepDetailFragment extends Fragment {
             simpleExoPlayer.release();
             simpleExoPlayer = null;
         }
-
     }
 }
