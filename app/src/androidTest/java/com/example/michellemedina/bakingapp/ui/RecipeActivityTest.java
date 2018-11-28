@@ -58,17 +58,6 @@ public class RecipeActivityTest {
                 .check(matches(hasDescendant(withText("Nutella Pie"))));
     }
 
-    @Test
-    @Ignore
-    public void checkLastRecipe() {
-        webServer.setDispatcher(new MockServerDispatcher(null, 200, fakeData).new RequestDispatcher());
-        activityRule.launchActivity(new Intent());
-
-        onView(withRecyclerView(R.id.recycler).atPosition(3))
-                .check(matches(hasDescendant(withText("Cheesecake"))));
-
-    }
-
     @After
     public void tearDown() throws Exception {
         webServer.shutdown();

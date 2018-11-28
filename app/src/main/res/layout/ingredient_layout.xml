@@ -5,21 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <android.support.v7.widget.AppCompatCheckBox
-        android:id="@+id/ingredient_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"/>
-
-
     <TextView
         android:id="@+id/ingredient_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="2.0"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"/>
-
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"/>
 
     <TextView
         android:id="@+id/ingredient_measure"
@@ -28,7 +21,6 @@
         tools:text="cups"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"/>
-
 
     <TextView
         android:id="@+id/ingredient_title"
