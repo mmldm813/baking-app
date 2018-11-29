@@ -38,6 +38,8 @@ public class StepDetailFragment extends Fragment {
     private Dessert dessert;
     private Step step;
     private ImageView noVideoImage;
+    private boolean isTwoPane;
+
 
     public static StepDetailFragment newInstance(Dessert dessert, int stepId) {
         Bundle bundle = new Bundle();
@@ -63,6 +65,8 @@ public class StepDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         readFromBundle(getArguments());
+        RecipeDetailActivity activity = (RecipeDetailActivity) getActivity();
+        isTwoPane = activity.isTwoPaneMode();
         View view = inflater.inflate(R.layout.step_detail_layout, container, false);
         addStepDescription(view);
         recipeNavigationSetup(view);
@@ -94,7 +98,7 @@ public class StepDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.recipe_detail_fragment_container,
+                        .replace(isTwoPane ? R.id.step_detail_fragment : R.id.recipe_detail_fragment_container,
                                 StepDetailFragment.newInstance(dessert, currentStepId - 1))
                         .commit();
                 releasePlayer();
@@ -109,7 +113,7 @@ public class StepDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.recipe_detail_fragment_container,
+                        .replace(isTwoPane ? R.id.step_detail_fragment : R.id.recipe_detail_fragment_container,
                                 StepDetailFragment.newInstance(dessert, currentStepId + 1))
                         .commit();
                 releasePlayer();

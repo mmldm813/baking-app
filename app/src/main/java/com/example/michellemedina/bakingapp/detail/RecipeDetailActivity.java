@@ -12,6 +12,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private static final String EXTRA_DESSERT = "dessert";
 
     private Dessert dessert;
+    private boolean twoPaneMode;
 
     public static void startWith(Context context, Dessert dessert) {
         Intent intent = new Intent(context, RecipeDetailActivity.class);
@@ -25,9 +26,15 @@ public class RecipeDetailActivity extends AppCompatActivity {
         getDessertFromExtra();
         setContentView(R.layout.activity_recipe_detail);
 
+        if (findViewById(R.id.recipe_detail_fragment_container) != null) {
+            twoPaneMode = true;
+        }else {
+            twoPaneMode = false;
+        }
+
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.recipe_detail_fragment_container,  RecipeDetailFragment.newInstance(dessert))
+                .add(R.id.recipe_detail_fragment_container, RecipeDetailFragment.newInstance(dessert))
                 .commit();
     }
 
@@ -43,5 +50,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
         // this works around the problem by just intercepting the back button and finishing the
         // activity
         finish();
+    }
+
+    public boolean isTwoPaneMode() {
+        return twoPaneMode;
     }
 }

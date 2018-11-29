@@ -19,6 +19,7 @@ import com.example.michellemedina.bakingapp.data.Step;
 public class RecipeDetailFragment extends Fragment {
     private static final String EXTRA_DESSERT = "dessert";
     private Dessert dessert;
+    private boolean isTwoPane;
 
     public static RecipeDetailFragment newInstance(Dessert dessert) {
         Bundle bundle = new Bundle();
@@ -40,6 +41,9 @@ public class RecipeDetailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         readFromBundle(getArguments());
+        RecipeDetailActivity activity = (RecipeDetailActivity) getActivity();
+        isTwoPane = activity.isTwoPaneMode();
+
         View view = inflater.inflate(R.layout.recipe_detail_layout, container, false);
         addIngredients(view);
         addSteps(view);
@@ -62,6 +66,7 @@ public class RecipeDetailFragment extends Fragment {
     }
 
     private void addSteps(final View view) {
+        Button firstButton = null;
         LinearLayout stepsLayout = view.findViewById(R.id.steps);
         for (final Step step : dessert.getSteps()) {
             View instructionView = getLayoutInflater().inflate(R.layout.instructions_layout
@@ -70,22 +75,35 @@ public class RecipeDetailFragment extends Fragment {
             if (step.getStepId() > 0) {
                 stepId.setText(String.format("Step %d", step.getStepId()));
             }
-            Button shortDescription = instructionView.findViewById(R.id.short_description);
-            shortDescription.setText(step.getShortDescription());
-            shortDescription.setOnClickListener(new View.OnClickListener() {
+            Button shortDescriptionButton = instructionView.findViewById(R.id.short_description);
+            shortDescriptionButton.setText(step.getShortDescription());
+            shortDescriptionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onClickStepToNextFragment(step);
                 }
             });
+            if (firstButton == null) {
+                firstButton = shortDescriptionButton;
+                if (isTwoPane) {
+                    firstButton.callOnClick();
+                }
+            }
             stepsLayout.addView(instructionView);
         }
     }
 
     private void onClickStepToNextFragment(Step step) {
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.recipe_detail_fragment_container, StepDetailFragment.newInstance(dessert, step.getStepId()))
-                .addToBackStack(null)
-                .commit();
+        if (isTwoPane){
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .add(R.id.step_detail_fragment, StepDetailFragment.newInstance(dessert, step.getStepId()))
+                    .commit();
+        } else {
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.recipe_detail_fragment_container, StepDetailFragment.newInstance(dessert, step.getStepId()))
+                    .addToBackStack(null)
+                    .commit();
+        }
+
     }
 }
