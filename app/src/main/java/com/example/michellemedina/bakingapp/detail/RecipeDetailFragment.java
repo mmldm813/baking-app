@@ -1,9 +1,11 @@
 package com.example.michellemedina.bakingapp.detail;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ public class RecipeDetailFragment extends Fragment {
     private static final String EXTRA_DESSERT = "dessert";
     private Dessert dessert;
     private boolean isTwoPane;
+    private Handler handler;
 
     public static RecipeDetailFragment newInstance(Dessert dessert) {
         Bundle bundle = new Bundle();
@@ -43,7 +46,7 @@ public class RecipeDetailFragment extends Fragment {
         readFromBundle(getArguments());
         RecipeDetailActivity activity = (RecipeDetailActivity) getActivity();
         isTwoPane = activity.isTwoPaneMode();
-
+        handler = new Handler();
         View view = inflater.inflate(R.layout.recipe_detail_layout, container, false);
         addIngredients(view);
         addSteps(view);
@@ -86,7 +89,13 @@ public class RecipeDetailFragment extends Fragment {
             if (firstButton == null) {
                 firstButton = shortDescriptionButton;
                 if (isTwoPane) {
-                    firstButton.callOnClick();
+                    final Button finalFirstButton = firstButton;
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            finalFirstButton.callOnClick();
+                        }
+                    });
                 }
             }
             stepsLayout.addView(instructionView);
@@ -94,15 +103,16 @@ public class RecipeDetailFragment extends Fragment {
     }
 
     private void onClickStepToNextFragment(Step step) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         if (isTwoPane){
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .add(R.id.step_detail_fragment, StepDetailFragment.newInstance(dessert, step.getStepId()))
-                    .commit();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.step_detail_fragment, StepDetailFragment.newInstance(dessert, step.getStepId()))
+                    .commitNow();
+
         } else {
-            getActivity().getSupportFragmentManager().beginTransaction()
+            fragmentManager.beginTransaction()
                     .replace(R.id.recipe_detail_fragment_container, StepDetailFragment.newInstance(dessert, step.getStepId()))
-                    .addToBackStack(null)
-                    .commit();
+                    .commitNow();
         }
 
     }

@@ -1,6 +1,7 @@
 package com.example.michellemedina.bakingapp.detail;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -68,6 +69,8 @@ public class StepDetailFragment extends Fragment {
         RecipeDetailActivity activity = (RecipeDetailActivity) getActivity();
         isTwoPane = activity.isTwoPaneMode();
         View view = inflater.inflate(R.layout.step_detail_layout, container, false);
+        view.setClickable(true);
+        view.setBackgroundColor(Color.WHITE);
         addStepDescription(view);
         recipeNavigationSetup(view);
         addExoplayerView(view);
@@ -101,7 +104,6 @@ public class StepDetailFragment extends Fragment {
                         .replace(isTwoPane ? R.id.step_detail_fragment : R.id.recipe_detail_fragment_container,
                                 StepDetailFragment.newInstance(dessert, currentStepId - 1))
                         .commit();
-                releasePlayer();
             }
         });
 
@@ -116,7 +118,6 @@ public class StepDetailFragment extends Fragment {
                         .replace(isTwoPane ? R.id.step_detail_fragment : R.id.recipe_detail_fragment_container,
                                 StepDetailFragment.newInstance(dessert, currentStepId + 1))
                         .commit();
-                releasePlayer();
             }
         });
     }
@@ -152,5 +153,11 @@ public class StepDetailFragment extends Fragment {
             simpleExoPlayer.release();
             simpleExoPlayer = null;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        releasePlayer();
     }
 }
