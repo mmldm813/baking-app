@@ -25,14 +25,6 @@ public class Dessert implements Serializable {
     @SerializedName("image")
     private String image;
 
-    public Integer getDessertId() {
-        return dessertId;
-    }
-
-    public void setDessertId(Integer id) {
-        this.dessertId = id;
-    }
-
     public String getDessertName() {
         return dessertName;
     }
@@ -55,14 +47,6 @@ public class Dessert implements Serializable {
 
     public void setSteps(List<Step> steps) {
         this.steps = steps;
-    }
-
-    public Integer getServings() {
-        return servings;
-    }
-
-    public void setServings(Integer servings) {
-        this.servings = servings;
     }
 
     public String getImage() {

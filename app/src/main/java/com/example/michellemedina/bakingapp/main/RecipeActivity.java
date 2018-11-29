@@ -2,6 +2,7 @@ package com.example.michellemedina.bakingapp.main;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +11,7 @@ import com.example.michellemedina.bakingapp.MyApplication;
 import com.example.michellemedina.bakingapp.R;
 import com.example.michellemedina.bakingapp.api.DessertClient;
 import com.example.michellemedina.bakingapp.data.Dessert;
+import com.example.michellemedina.bakingapp.detail.RecipeDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,27 +30,34 @@ public class RecipeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DessertCardAdapter adapter;
     private List<Dessert> desserts = new ArrayList<>();
+    private boolean twoPaneMode;
 
-    @Inject Retrofit retrofit;
+    @Inject
+    Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (findViewById(R.id.two_pane) != null) {
+            twoPaneMode = true;
+        } else {
+            twoPaneMode = false;
+        }
         setupDagger();
         setupCardView();
     }
 
     private void setupDagger() {
-        ((MyApplication)getApplication()).getComponent().inject(this);
+        ((MyApplication) getApplication()).getComponent().inject(this);
     }
 
-    public void setupCardView(){
+    public void setupCardView() {
         recyclerView = findViewById(R.id.recycler);
-        LinearLayoutManager cardList = new LinearLayoutManager(this);
-        cardList.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(cardList);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, twoPaneMode ? 2 : 1);
+        recyclerView.setLayoutManager(layoutManager);
+
         adapter = new DessertCardAdapter();
         recyclerView.setAdapter(adapter);
     }

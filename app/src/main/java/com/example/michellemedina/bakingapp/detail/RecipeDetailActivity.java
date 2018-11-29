@@ -26,7 +26,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         getDessertFromExtra();
         setContentView(R.layout.activity_recipe_detail);
 
-        if (findViewById(R.id.recipe_detail_fragment_container) != null) {
+        if (findViewById(R.id.divider_two_pane) != null) {
             twoPaneMode = true;
         }else {
             twoPaneMode = false;
