@@ -33,6 +33,8 @@ import com.google.android.exoplayer2.util.Util;
 public class StepDetailFragment extends Fragment {
     private static final String EXTRA_DESSERT = "dessert";
     private static final String EXTRA_STEP_ID = "stepId";
+    private static final String PLAYER_POSITION = "playerPosition";
+
     private SimpleExoPlayer simpleExoPlayer;
     private SimpleExoPlayerView simpleExoPlayerView;
 
@@ -41,6 +43,7 @@ public class StepDetailFragment extends Fragment {
     private ImageView noVideoImage;
     private boolean isTwoPane;
     private View view;
+    private long position;
 
     public static StepDetailFragment newInstance(Dessert dessert, int stepId) {
         Bundle bundle = new Bundle();
@@ -61,6 +64,12 @@ public class StepDetailFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(PLAYER_POSITION, position);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -74,6 +83,9 @@ public class StepDetailFragment extends Fragment {
         addStepDescription(view);
         recipeNavigationSetup(view);
         addExoplayerView(view);
+        if (savedInstanceState != null) {
+            position = savedInstanceState.getLong(PLAYER_POSITION, 0);
+        }
         return view;
     }
 
@@ -141,7 +153,7 @@ public class StepDetailFragment extends Fragment {
                     context, userAgent), new DefaultExtractorsFactory(), null, null);
             simpleExoPlayer.prepare(mediaSource);
             simpleExoPlayer.setPlayWhenReady(true);
-//            simpleExoPlayer.seekTo(position);
+            simpleExoPlayer.seekTo(position);
         }
     }
 
@@ -159,6 +171,7 @@ public class StepDetailFragment extends Fragment {
 
     private void releasePlayer() {
         if (simpleExoPlayer != null) {
+            position = simpleExoPlayer.getCurrentPosition();
             simpleExoPlayer.release();
             simpleExoPlayer = null;
         }
