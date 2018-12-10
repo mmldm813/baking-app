@@ -33,6 +33,8 @@ import com.google.android.exoplayer2.util.Util;
 public class StepDetailFragment extends Fragment {
     private static final String EXTRA_DESSERT = "dessert";
     private static final String EXTRA_STEP_ID = "stepId";
+//    private static final String PLAYER_POSITION = "currentPosition";
+//    private static final String SELECTED_POSITION = "selectedPosition";
     private SimpleExoPlayer simpleExoPlayer;
     private SimpleExoPlayerView simpleExoPlayerView;
 
@@ -40,7 +42,8 @@ public class StepDetailFragment extends Fragment {
     private Step step;
     private ImageView noVideoImage;
     private boolean isTwoPane;
-
+    private View view;
+//    private long position;
 
     public static StepDetailFragment newInstance(Dessert dessert, int stepId) {
         Bundle bundle = new Bundle();
@@ -61,6 +64,12 @@ public class StepDetailFragment extends Fragment {
         }
     }
 
+//    @Override
+//    public void onSaveInstanceState(@NonNull Bundle instanceState) {
+//        super.onSaveInstanceState(instanceState);
+//        instanceState.putLong(PLAYER_POSITION, simpleExoPlayer.getCurrentPosition());
+//    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -68,22 +77,23 @@ public class StepDetailFragment extends Fragment {
         readFromBundle(getArguments());
         RecipeDetailActivity activity = (RecipeDetailActivity) getActivity();
         isTwoPane = activity.isTwoPaneMode();
-        View view = inflater.inflate(R.layout.step_detail_layout, container, false);
+        view = inflater.inflate(R.layout.step_detail_layout, container, false);
         view.setClickable(true);
         view.setBackgroundColor(Color.WHITE);
         addStepDescription(view);
         recipeNavigationSetup(view);
         addExoplayerView(view);
-        if (step.getVideoURL().isEmpty() && step.getThumbnailURL().isEmpty()) {
-            simpleExoPlayerView.setVisibility(View.GONE);
-            addNoVideoImage(view);
-            noVideoImage.setVisibility(View.VISIBLE);
-        } else if (step.getVideoURL().isEmpty()) {
-            initializePlayer(Uri.parse(step.getThumbnailURL()));
-        } else {
-            initializePlayer(Uri.parse(step.getVideoURL()));
-        }
+//        if (savedInstanceState != null) {
+//            position = savedInstanceState.getLong(SELECTED_POSITION, 0);
+//            simpleExoPlayer.seekTo(position);
+//        }
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setupForPlayerView(view);
     }
 
     private void addStepDescription(View view) {
@@ -144,15 +154,33 @@ public class StepDetailFragment extends Fragment {
                     context, userAgent), new DefaultExtractorsFactory(), null, null);
             simpleExoPlayer.prepare(mediaSource);
             simpleExoPlayer.setPlayWhenReady(true);
+//            simpleExoPlayer.seekTo(position);
+        }
+    }
+
+    private void setupForPlayerView(View view) {
+        if (step.getVideoURL().isEmpty() && step.getThumbnailURL().isEmpty()) {
+            simpleExoPlayerView.setVisibility(View.GONE);
+            addNoVideoImage(view);
+            noVideoImage.setVisibility(View.VISIBLE);
+        } else if (step.getVideoURL().isEmpty()) {
+            initializePlayer(Uri.parse(step.getThumbnailURL()));
+        } else {
+            initializePlayer(Uri.parse(step.getVideoURL()));
         }
     }
 
     private void releasePlayer() {
         if (simpleExoPlayer != null) {
-            simpleExoPlayer.stop();
             simpleExoPlayer.release();
             simpleExoPlayer = null;
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        releasePlayer();
     }
 
     @Override
