@@ -2,6 +2,7 @@ package com.example.michellemedina.bakingapp.detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -32,10 +33,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
             twoPaneMode = false;
         }
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.recipe_detail_fragment_container, RecipeDetailFragment.newInstance(dessert))
-                .commit();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.recipe_detail_fragment_container, RecipeDetailFragment.newInstance(dessert))
+                    .commit();
+        }
     }
 
     private void getDessertFromExtra() {

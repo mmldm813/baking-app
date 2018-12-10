@@ -33,8 +33,6 @@ import com.google.android.exoplayer2.util.Util;
 public class StepDetailFragment extends Fragment {
     private static final String EXTRA_DESSERT = "dessert";
     private static final String EXTRA_STEP_ID = "stepId";
-//    private static final String PLAYER_POSITION = "currentPosition";
-//    private static final String SELECTED_POSITION = "selectedPosition";
     private SimpleExoPlayer simpleExoPlayer;
     private SimpleExoPlayerView simpleExoPlayerView;
 
@@ -43,7 +41,6 @@ public class StepDetailFragment extends Fragment {
     private ImageView noVideoImage;
     private boolean isTwoPane;
     private View view;
-//    private long position;
 
     public static StepDetailFragment newInstance(Dessert dessert, int stepId) {
         Bundle bundle = new Bundle();
@@ -64,12 +61,6 @@ public class StepDetailFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onSaveInstanceState(@NonNull Bundle instanceState) {
-//        super.onSaveInstanceState(instanceState);
-//        instanceState.putLong(PLAYER_POSITION, simpleExoPlayer.getCurrentPosition());
-//    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -83,10 +74,6 @@ public class StepDetailFragment extends Fragment {
         addStepDescription(view);
         recipeNavigationSetup(view);
         addExoplayerView(view);
-//        if (savedInstanceState != null) {
-//            position = savedInstanceState.getLong(SELECTED_POSITION, 0);
-//            simpleExoPlayer.seekTo(position);
-//        }
         return view;
     }
 
