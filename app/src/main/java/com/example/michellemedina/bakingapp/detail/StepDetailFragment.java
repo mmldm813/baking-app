@@ -34,6 +34,7 @@ public class StepDetailFragment extends Fragment {
     private static final String EXTRA_DESSERT = "dessert";
     private static final String EXTRA_STEP_ID = "stepId";
     private static final String PLAYER_POSITION = "playerPosition";
+    private static final String IS_PLAYING = "isPlaying" ;
 
     private SimpleExoPlayer simpleExoPlayer;
     private SimpleExoPlayerView simpleExoPlayerView;
@@ -44,6 +45,7 @@ public class StepDetailFragment extends Fragment {
     private boolean isTwoPane;
     private View view;
     private long position;
+    private boolean playWhenReady = true;
 
     public static StepDetailFragment newInstance(Dessert dessert, int stepId) {
         Bundle bundle = new Bundle();
@@ -68,6 +70,7 @@ public class StepDetailFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putLong(PLAYER_POSITION, position);
+        outState.putBoolean(IS_PLAYING, playWhenReady);
     }
 
     @Nullable
@@ -85,13 +88,14 @@ public class StepDetailFragment extends Fragment {
         addExoplayerView(view);
         if (savedInstanceState != null) {
             position = savedInstanceState.getLong(PLAYER_POSITION, 0);
+            playWhenReady = savedInstanceState.getBoolean(IS_PLAYING, true);
         }
         return view;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         setupForPlayerView(view);
     }
 
@@ -152,7 +156,7 @@ public class StepDetailFragment extends Fragment {
             MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
                     context, userAgent), new DefaultExtractorsFactory(), null, null);
             simpleExoPlayer.prepare(mediaSource);
-            simpleExoPlayer.setPlayWhenReady(true);
+            simpleExoPlayer.setPlayWhenReady(playWhenReady);
             simpleExoPlayer.seekTo(position);
         }
     }
@@ -172,6 +176,7 @@ public class StepDetailFragment extends Fragment {
     private void releasePlayer() {
         if (simpleExoPlayer != null) {
             position = simpleExoPlayer.getCurrentPosition();
+            playWhenReady = simpleExoPlayer.getPlayWhenReady();
             simpleExoPlayer.release();
             simpleExoPlayer = null;
         }
